@@ -1,7 +1,12 @@
 class PostsController < ApplicationController
+  # equivalent to layout
+  matestack_app TwitterClone::App
+
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    # equivalent to template/view
+    render TwitterClone::Pages::Posts::Index
   end
 
   # POST /posts or /posts.json
