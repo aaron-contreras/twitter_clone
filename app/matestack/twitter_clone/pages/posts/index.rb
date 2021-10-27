@@ -26,6 +26,16 @@ class TwitterClone::Pages::Posts::Index < Matestack::Ui::Page
           button 'submit', type: :submit, class: "btn btn-primary", text: "Post!"
         end
       end
+      toggle show_on: "submitted", hide_after: 5000 do
+        div class: "container fixed-bottom w-100 bg-success text-white p-3 rounded-top" do
+          heading size: 4, text: "Success: {{ event.data.message }}"
+        end
+      end
+      toggle show_on: "form_failed", hide_after: 5000 do
+        div class: "container fixed-bottom w-100 bg-danger text-white p-3 rounded-top" do
+          heading size: 4, text: "Error: {{ event.data.message }}"
+        end
+      end
     end
   end
 
@@ -38,7 +48,8 @@ class TwitterClone::Pages::Posts::Index < Matestack::Ui::Page
         wrapper: { tag: :div, class: 'invalid-feedback' },
         input: { class: 'is-invalid' }
       },
-      success: { emit: "submitted" }
+      success: { emit: "submitted" },
+      failure: { emit: "form_failed" }
     }
   end
 
