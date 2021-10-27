@@ -25,6 +25,22 @@ class PostsController < ApplicationController
     end
   end
 
+  def like
+    @post = Post.find(params[:id])
+    @post.increment(:likes_count)
+
+    if @post.save
+      render json: {
+        message: 'Post was succesfully liked.'
+      }, status: :created
+    else
+      render json: {
+        errors: @post.errors,
+        message: 'Post could not be liked.'
+      }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # Only allow a list of trusted parameters through.
